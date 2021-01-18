@@ -11,6 +11,7 @@ class ViewController: UIViewController {
     
     lazy var imageReceived: UIImageView = {
         let image = UIImageView()
+        image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -39,10 +40,12 @@ class ViewController: UIViewController {
         stackView.alignment = .center
         return stackView
     }()
+    
+    var pictureOfTheDay: AstronomyPicture?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .gray
+        view.backgroundColor = .black
         view.addSubview(stackView)
         
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -53,16 +56,48 @@ class ViewController: UIViewController {
         stackView.addArrangedSubview(imageReceived)
         stackView.addArrangedSubview(imageTitle)
         stackView.addArrangedSubview(goToDescriptionButton)
-        
+        // activity indicator start
         AstronomyPictureAPI.requestImageFile { (response, error) in
-            guard let response = response else { return }
-            // 1. fix scene delegate
+            guard let responseExpected = response else {
+                // show alert with error
+                fatalError("Couldn't load the Astronomy image \(error)")
+            }
+            self.pictureOfTheDay = responseExpected
             // 2. figure out how to set image to image view from response.hdurl
+            self.imageReceived.downloaded(from: responseExpected.hdurl) { (image) in
+                // hide activity indicator
+                if image != nil {
+                    // do nothing
+                } else {
+                    // set image as error image
+                }
+            }
         }
     }
 
     @objc func goToDescriptionIsTapped() {
         
     }
+    
 }
 
+
+extension UIImageView {
+    func downloaded(from url: URL, completion: ((UIImage?) -> Void)? = nil) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard
+                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                let data = data, error == nil,
+                let image = UIImage(data: data)
+                else {
+                completion?(nil)
+                return
+            }
+            DispatchQueue.main.async() { [weak self] in
+                self?.image = image
+                completion?(image)
+            }
+        }.resume()
+    }
+}
