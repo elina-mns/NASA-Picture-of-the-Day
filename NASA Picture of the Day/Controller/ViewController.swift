@@ -53,6 +53,12 @@ class ViewController: UIViewController {
         stackView.addArrangedSubview(imageReceived)
         stackView.addArrangedSubview(imageTitle)
         stackView.addArrangedSubview(goToDescriptionButton)
+        
+        AstronomyPictureAPI.requestImageFile { (response, error) in
+            guard let response = response else { return }
+            // 1. fix scene delegate
+            // 2. figure out how to set image to image view from response.hdurl
+        }
     }
 
     @objc func goToDescriptionIsTapped() {
