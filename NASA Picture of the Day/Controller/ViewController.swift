@@ -9,7 +9,11 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    private let APIkey = "zEe8cNKWkoT1kuR4B5LKhZJuzdTfw5cO7kyUJcSw"
+    lazy var imageReceived: UIImage = {
+        let image = UIImage()
+        
+        return image
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
