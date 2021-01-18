@@ -9,8 +9,8 @@ import Foundation
 
 struct AstronomyPicture: Codable {
     let explanation: String
-    let hdurl: URL
-    let mediaType: UIImage
+    let hdurl: String
+    let mediaType: String
     let title: String
 }
 
