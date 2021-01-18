@@ -8,10 +8,11 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    private let APIkey = "zEe8cNKWkoT1kuR4B5LKhZJuzdTfw5cO7kyUJcSw"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
 
