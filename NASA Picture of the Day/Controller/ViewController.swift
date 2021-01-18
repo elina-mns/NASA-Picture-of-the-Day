@@ -41,6 +41,12 @@ class ViewController: UIViewController {
         return stackView
     }()
     
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return activityIndicator
+    }()
+    
     var pictureOfTheDay: AstronomyPicture?
 
     override func viewDidLoad() {
@@ -56,16 +62,18 @@ class ViewController: UIViewController {
         stackView.addArrangedSubview(imageReceived)
         stackView.addArrangedSubview(imageTitle)
         stackView.addArrangedSubview(goToDescriptionButton)
-        // activity indicator start
+        stackView.addArrangedSubview(activityIndicator)
+    
+        activityIndicator.startAnimating()
+        
         AstronomyPictureAPI.requestImageFile { (response, error) in
             guard let responseExpected = response else {
                 // show alert with error
                 fatalError("Couldn't load the Astronomy image \(error)")
             }
             self.pictureOfTheDay = responseExpected
-            // 2. figure out how to set image to image view from response.hdurl
             self.imageReceived.downloaded(from: responseExpected.hdurl) { (image) in
-                // hide activity indicator
+                self.activityIndicator.stopAnimating()
                 if image != nil {
                     // do nothing
                 } else {
@@ -83,6 +91,7 @@ class ViewController: UIViewController {
 
 
 extension UIImageView {
+    
     func downloaded(from url: URL, completion: ((UIImage?) -> Void)? = nil) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard
