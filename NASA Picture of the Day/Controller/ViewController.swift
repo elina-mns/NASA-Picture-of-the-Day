@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         view.backgroundColor = .black
         view.addSubview(stackView)
         view.addSubview(activityIndicator)
-        self.navigationController?.isNavigationBarHidden = true
+        navigationController?.isNavigationBarHidden = true
         
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -71,6 +71,10 @@ class ViewController: UIViewController {
         activityIndicator.startAnimating()
         
         requestImageFile()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = true
     }
     
     func requestImageFile() {
