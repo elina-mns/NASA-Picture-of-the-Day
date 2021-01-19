@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     lazy var imageTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        //label.text = AstronomyPicture.title
         label.font = UIFont.systemFont(ofSize: 100)
         return label
     }()
@@ -69,27 +68,40 @@ class ViewController: UIViewController {
         activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         activityIndicator.startAnimating()
         
+        requestImageFile()
         imageTitle.text = pictureOfTheDay?.title
-        imageTitle.textColor = .white
-        
+      
+    }
+    
+    func requestImageFile() {
         AstronomyPictureAPI.requestImageFile { (response, error) in
             guard let responseExpected = response else {
-                self.showAlert(title: "Error", message: "Couldn't upload an image this time (maybe poor connection)", okAction: nil)
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Error", message: "Couldn't upload an image this time (maybe poor connection)", okAction: nil)
+                }
                 return
             }
             self.pictureOfTheDay = responseExpected
             self.imageReceived.downloaded(from: responseExpected.hdurl) { (image) in
                 if image != nil {
-                    self.activityIndicator.stopAnimating()
+                    DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
+                    }
                 } else {
-                    // set image as error image
+                    DispatchQueue.main.async {
+                        self.imageReceived.image = UIImage(named: "error")
+                        self.activityIndicator.stopAnimating()
+                    }
                 }
             }
         }
     }
-
+    
+    
     @objc func goToDescriptionIsTapped() {
-        
+        presentingViewController?.performSegue(withIdentifier: "Description", sender: goToDescriptionButton)
+        let secondViewController = SecondViewController()
+        self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     
 }

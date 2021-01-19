@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		31D6F73D25B73F5900237085 /* AlertExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D6F73C25B73F5900237085 /* AlertExt.swift */; };
+		31D6F74025B74F8900237085 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D6F73F25B74F8900237085 /* SecondViewController.swift */; };
 		31DAB17625B5F52300109E10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DAB17525B5F52300109E10 /* AppDelegate.swift */; };
 		31DAB17825B5F52300109E10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DAB17725B5F52300109E10 /* SceneDelegate.swift */; };
 		31DAB17A25B5F52300109E10 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DAB17925B5F52300109E10 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		31D6F73C25B73F5900237085 /* AlertExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExt.swift; sourceTree = "<group>"; };
+		31D6F73F25B74F8900237085 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		31DAB17225B5F52300109E10 /* NASA Picture of the Day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NASA Picture of the Day.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		31DAB17525B5F52300109E10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31DAB17725B5F52300109E10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				31DAB17925B5F52300109E10 /* ViewController.swift */,
+				31D6F73F25B74F8900237085 /* SecondViewController.swift */,
 				31D6F73C25B73F5900237085 /* AlertExt.swift */,
 				31DAB17525B5F52300109E10 /* AppDelegate.swift */,
 				31DAB17725B5F52300109E10 /* SceneDelegate.swift */,
@@ -170,6 +173,7 @@
 				31DAB17A25B5F52300109E10 /* ViewController.swift in Sources */,
 				31DAB19325B5F7B900109E10 /* AstronomyPicture.swift in Sources */,
 				31DAB17625B5F52300109E10 /* AppDelegate.swift in Sources */,
+				31D6F74025B74F8900237085 /* SecondViewController.swift in Sources */,
 				31DAB18F25B5F77600109E10 /* AstronomyPictureAPI.swift in Sources */,
 				31DAB17825B5F52300109E10 /* SceneDelegate.swift in Sources */,
 			);
