@@ -53,6 +53,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         view.addSubview(stackView)
+        view.addSubview(activityIndicator)
+        self.navigationController?.isNavigationBarHidden = true
         
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -62,20 +64,23 @@ class ViewController: UIViewController {
         stackView.addArrangedSubview(imageReceived)
         stackView.addArrangedSubview(imageTitle)
         stackView.addArrangedSubview(goToDescriptionButton)
-        stackView.addArrangedSubview(activityIndicator)
-    
+        
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         activityIndicator.startAnimating()
+        
+        imageTitle.text = pictureOfTheDay?.title
+        imageTitle.textColor = .white
         
         AstronomyPictureAPI.requestImageFile { (response, error) in
             guard let responseExpected = response else {
-                // show alert with error
-                fatalError("Couldn't load the Astronomy image \(error)")
+                self.showAlert(title: "Error", message: "Couldn't upload an image this time (maybe poor connection)", okAction: nil)
+                return
             }
             self.pictureOfTheDay = responseExpected
             self.imageReceived.downloaded(from: responseExpected.hdurl) { (image) in
-                self.activityIndicator.stopAnimating()
                 if image != nil {
-                    // do nothing
+                    self.activityIndicator.stopAnimating()
                 } else {
                     // set image as error image
                 }
