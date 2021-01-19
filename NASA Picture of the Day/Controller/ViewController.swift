@@ -9,20 +9,20 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    lazy var imageTitle: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
+    }()
+    
     lazy var imageReceived: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-    
-    lazy var imageTitle: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 100)
-        return label
-    }()
-    
+
     lazy var goToDescriptionButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -60,17 +60,17 @@ class ViewController: UIViewController {
         stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         
-        stackView.addArrangedSubview(imageReceived)
         stackView.addArrangedSubview(imageTitle)
+        stackView.addArrangedSubview(imageReceived)
         stackView.addArrangedSubview(goToDescriptionButton)
+        
+        imageTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3).isActive = true
         
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         activityIndicator.startAnimating()
         
         requestImageFile()
-        imageTitle.text = pictureOfTheDay?.title
-      
     }
     
     func requestImageFile() {
@@ -86,6 +86,8 @@ class ViewController: UIViewController {
                 if image != nil {
                     DispatchQueue.main.async {
                         self.activityIndicator.stopAnimating()
+                        self.imageTitle.text = self.pictureOfTheDay?.title
+                        self.imageTitle.textColor = .white
                     }
                 } else {
                     DispatchQueue.main.async {
