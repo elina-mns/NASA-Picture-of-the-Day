@@ -1,4 +1,5 @@
-<img src="https://github.com/elina-mns/NASA-Picture-of-the-Day/blob/main/NASA%20Picture%20of%20the%20Day/Assets.xcassets/AppIcon.appiconset/180.png"
+<img src="https://github.com/elina-mns/NASA-Picture-of-the-Day/blob/main/NASA%20Picture%20of%20the%20Day/pics%20for%20readMe/icon%20for%20readMe.png"
+width=230, height=210
 align="right"/>
 
 # NASA-Picture-of-the-Day
