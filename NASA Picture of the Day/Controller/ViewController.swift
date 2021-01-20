@@ -86,6 +86,8 @@ class ViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
     }
     
+    //MARK: - Request Image File and Set title
+    
     func requestImageFile() {
         AstronomyPictureAPI.requestImageFile { (response, error) in
             guard let responseExpected = response else {
@@ -113,7 +115,6 @@ class ViewController: UIViewController {
         }
     }
     
-    
     @objc func goToDescriptionIsTapped() {
         let secondViewController = SecondViewController()
         secondViewController.pictureOfTheDay = pictureOfTheDay
@@ -121,6 +122,7 @@ class ViewController: UIViewController {
     }
 }
 
+//MARK: - Extension for UIImageView to process the link in JSON
 
 extension UIImageView {
     
