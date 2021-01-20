@@ -13,6 +13,10 @@ class ViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 20)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.textAlignment = .center
+        label.textColor = .white
         return label
     }()
     
@@ -41,7 +45,8 @@ class ViewController: UIViewController {
     }()
     
     lazy var activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.color = .white
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
     }()
@@ -51,20 +56,24 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        view.addSubview(stackView)
         view.addSubview(activityIndicator)
+        view.addSubview(imageReceived)
+        view.addSubview(imageTitle)
+        view.addSubview(goToDescriptionButton)
         navigationController?.isNavigationBarHidden = true
         
-        stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        imageReceived.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        imageReceived.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        imageReceived.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        imageReceived.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
-        stackView.addArrangedSubview(imageTitle)
-        stackView.addArrangedSubview(imageReceived)
-        stackView.addArrangedSubview(goToDescriptionButton)
+        imageTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8).isActive = true
+        imageTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8).isActive = true
+        imageTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
         
-        imageTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3).isActive = true
+        goToDescriptionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        goToDescriptionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        goToDescriptionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 8).isActive = true
         
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
@@ -86,12 +95,13 @@ class ViewController: UIViewController {
                 return
             }
             self.pictureOfTheDay = responseExpected
+            DispatchQueue.main.async {
+                self.imageTitle.text = self.pictureOfTheDay?.title
+            }
             self.imageReceived.downloaded(from: responseExpected.hdurl) { (image) in
                 if image != nil {
                     DispatchQueue.main.async {
                         self.activityIndicator.stopAnimating()
-                        self.imageTitle.text = self.pictureOfTheDay?.title
-                        self.imageTitle.textColor = .white
                     }
                 } else {
                     DispatchQueue.main.async {
@@ -105,11 +115,10 @@ class ViewController: UIViewController {
     
     
     @objc func goToDescriptionIsTapped() {
-        presentingViewController?.performSegue(withIdentifier: "Description", sender: goToDescriptionButton)
         let secondViewController = SecondViewController()
+        secondViewController.pictureOfTheDay = pictureOfTheDay
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
-    
 }
 
 

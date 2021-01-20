@@ -16,6 +16,7 @@ class SecondViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = UIFont.systemFont(ofSize: 20)
         textField.backgroundColor = .black
+        textField.textColor = .white
         return textField
     }()
     
