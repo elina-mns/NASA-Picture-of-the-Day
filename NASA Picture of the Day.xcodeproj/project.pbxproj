@@ -66,6 +66,7 @@
 				31DAB19925B5F87500109E10 /* Controller */,
 				31DAB19A25B5F89B00109E10 /* View */,
 				31DAB18325B5F52500109E10 /* Info.plist */,
+				31DAB17E25B5F52500109E10 /* Assets.xcassets */,
 			);
 			path = "NASA Picture of the Day";
 			sourceTree = "<group>";
@@ -94,7 +95,6 @@
 		31DAB19A25B5F89B00109E10 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				31DAB17E25B5F52500109E10 /* Assets.xcassets */,
 				31DAB18025B5F52500109E10 /* LaunchScreen.storyboard */,
 			);
 			path = View;
