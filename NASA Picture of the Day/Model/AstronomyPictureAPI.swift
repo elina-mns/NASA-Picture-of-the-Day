@@ -32,7 +32,6 @@ class AstronomyPictureAPI {
             }
             let decoder = JSONDecoder()
             let downloadedImageData = try! decoder.decode(AstronomyPicture.self, from: data)
-            print(downloadedImageData)
             completionHandler(downloadedImageData, nil)
         })
         task.resume()
